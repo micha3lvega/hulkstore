@@ -9,10 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import co.com.hulk.store.commons.dto.UserDTO;
-import co.com.hulk.store.services.IUserServices;
 import co.com.hulk.store.services.model.User;
 import co.com.hulk.store.services.model.UserState;
 import co.com.hulk.store.services.repository.UserRepository;
+import co.com.hulk.store.services.services.IUserServices;
 
 @Service
 public class UserServices implements IUserServices {
