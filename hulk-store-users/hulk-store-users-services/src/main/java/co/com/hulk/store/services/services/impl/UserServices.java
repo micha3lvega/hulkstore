@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import co.com.hulk.store.commons.dto.UserDTO;
 import co.com.hulk.store.services.IUserServices;
 import co.com.hulk.store.services.model.User;
+import co.com.hulk.store.services.model.UserState;
 import co.com.hulk.store.services.repository.UserRepository;
 
 @Service
@@ -39,6 +40,7 @@ public class UserServices implements IUserServices {
 
 		User obj = mapper.map(user, User.class);
 		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
+		obj.setState(UserState.ACTIVE);
 
 		User userCreate = repository.insert(obj);
 		return mapper.map(userCreate, UserDTO.class);

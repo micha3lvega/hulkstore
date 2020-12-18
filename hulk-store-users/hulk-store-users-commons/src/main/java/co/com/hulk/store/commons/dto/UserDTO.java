@@ -26,6 +26,8 @@ public class UserDTO implements Serializable {
 	private String mobile;
 	private String password;
 
+	private UserStateDTO state;
+	
 	private Date createDate;
 	private Date lastUpdate;
 

@@ -51,5 +51,7 @@ public class User implements Serializable {
 	
 	@LastModifiedDate
 	private Date lastUpdate;
+	
+	private UserState state;
 
 }
