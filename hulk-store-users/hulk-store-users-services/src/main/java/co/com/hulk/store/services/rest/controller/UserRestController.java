@@ -1,4 +1,4 @@
-package co.com.hulk.store.services;
+package co.com.hulk.store.services.rest.controller;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.hulk.store.commons.dto.UserDTO;
+import co.com.hulk.store.services.services.IUserServices;
 
 @RestController
 @RequestMapping("/api/v1/user")
