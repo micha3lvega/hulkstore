@@ -35,18 +35,20 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
-	public UserDTO create(User user) {
+	public UserDTO create(UserDTO user) {
 
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		User obj = mapper.map(user, User.class);
+		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
 
-		User userCreate = repository.insert(user);
+		User userCreate = repository.insert(obj);
 		return mapper.map(userCreate, UserDTO.class);
 
 	}
 
 	@Override
-	public UserDTO update(User user) {
-		User userCreate = repository.save(user);
+	public UserDTO update(UserDTO user) {
+		User obj = mapper.map(user, User.class);
+		User userCreate = repository.save(obj);
 		return mapper.map(userCreate, UserDTO.class);
 	}
 
@@ -67,7 +69,7 @@ public class UserServices implements IUserServices {
 		}
 
 		// verify password
-		if (passwordEncoder.matches(user.getPassword(), encodedPassword)) {
+		if (passwordEncoder.matches(encodedPassword, user.getPassword())) {
 			return mapper.map(user, UserDTO.class);
 		}
 
