@@ -21,3 +21,29 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/.classpath
+/.factorypath
+/.project
+/.settings
+
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/*
+.settings/*
+*mvnw*
+*/.settings/*
+*/.project
+*.mvn*
+/hulk-store-users/hulk-store-users-commons/.settings/org.eclipse.jdt.apt.core.prefs
+/hulk-store-users/hulk-store-users-commons/.settings/org.eclipse.jdt.core.prefs
+/hulk-store-users/hulk-store-users-commons/.project
+/hulk-store-users/hulk-store-users-commons/.settings/org.eclipse.m2e.core.prefs
+/hulk-store-users/hulk-store-users-commons/.classpath
