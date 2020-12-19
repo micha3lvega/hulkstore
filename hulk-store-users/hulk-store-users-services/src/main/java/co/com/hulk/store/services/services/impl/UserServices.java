@@ -70,13 +70,13 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
-	public UserDTO login(String email, String encodedPassword) {
+	public UserDTO login(String email, String encodedPassword) throws UserException {
 
 		// find user by email
 		User user = repository.findByEmail(email);
 
 		if (user == null) {
-			return null;
+			throw new UserException(UserExceptionCode.USER_NO_EXITS);
 		}
 
 		// verify password
