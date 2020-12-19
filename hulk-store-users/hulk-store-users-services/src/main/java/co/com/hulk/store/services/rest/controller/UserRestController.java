@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.hulk.store.commons.dto.UserDTO;
+import co.com.hulk.store.commons.exception.UserException;
 import co.com.hulk.store.services.services.IUserServices;
 
 @RestController
@@ -25,29 +26,41 @@ public class UserRestController {
 
 	@Autowired
 	private IUserServices iUserServices;
-	
+
 	@PostMapping
-	public UserDTO create(@Valid @RequestBody UserDTO user) {
+	public UserDTO create(@Valid @RequestBody UserDTO user) throws UserException {
 		return iUserServices.create(user);
 	}
-	
+
 	@GetMapping
-	public List<UserDTO> findAll(){
+	public List<UserDTO> findAll() {
 		return iUserServices.findAll();
 	}
-	
+
 	@PutMapping
 	public UserDTO update(@Valid @RequestBody UserDTO user) {
 		return iUserServices.update(user);
 	}
-	
+
 	@GetMapping("/{id}")
 	public UserDTO findById(@PathVariable("id") String id) {
 		return iUserServices.findById(id);
 	}
-	
+
+	@PutMapping("/disable/{id}")
+	public UserDTO disable(@PathVariable("id") String id) throws UserException {
+		return iUserServices.disable(id);
+	}
+
 	@GetMapping("/login/{email}/{password}")
-	public UserDTO login(@PathVariable("email") String email, @PathVariable("password") String password) {
+	public UserDTO login(@PathVariable("email") String email, @PathVariable("password") String password)
+			throws UserException {
 		return iUserServices.login(email, password);
+	}
+
+	@PutMapping("/updatePassword/{id}/{password}")
+	public UserDTO updatePassword(@PathVariable("id") String id, @PathVariable("newPassword") String newPassword)
+			throws UserException {
+		return iUserServices.updatePassword(id, newPassword);
 	}
 }

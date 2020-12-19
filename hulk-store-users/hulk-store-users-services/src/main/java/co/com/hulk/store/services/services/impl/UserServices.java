@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import co.com.hulk.store.commons.dto.UserDTO;
+import co.com.hulk.store.commons.exception.UserException;
+import co.com.hulk.store.commons.exception.UserExceptionCode;
 import co.com.hulk.store.services.model.User;
 import co.com.hulk.store.services.model.UserState;
 import co.com.hulk.store.services.repository.UserRepository;
@@ -36,7 +38,14 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
-	public UserDTO create(UserDTO user) {
+	public UserDTO create(UserDTO user) throws UserException {
+
+		// find by repeat email
+		User userEmail = repository.findByEmail(user.getEmail());
+
+		if (userEmail != null) {
+			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
+		}
 
 		User obj = mapper.map(user, User.class);
 		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
@@ -76,6 +85,24 @@ public class UserServices implements IUserServices {
 		}
 
 		return null;
+	}
+
+	@Override
+	public UserDTO disable(String id) throws UserException {
+
+		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
+		user.setState(UserState.INACTIVE);
+
+		return mapper.map(repository.save(user), UserDTO.class);
+	}
+
+	@Override
+	public UserDTO updatePassword(String id, String newPassword) throws UserException {
+		
+		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
+		user.setPassword(passwordEncoder.encode(newPassword));
+		
+		return mapper.map(repository.save(user), UserDTO.class);
 	}
 
 }
