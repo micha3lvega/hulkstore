@@ -1,0 +1,63 @@
+package co.com.hulk.store.product.services.services.impl;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import co.com.hulk.store.product.services.model.Brand;
+import co.com.hulk.store.product.services.repository.BrandRepository;
+import co.com.hulk.store.product.services.services.IBrandServices;
+import co.com.hulk.store.products.commons.dto.BrandDTO;
+
+@Service
+public class BrandServices implements IBrandServices {
+
+	@Autowired
+	private BrandRepository repository;
+
+	@Autowired
+	private ModelMapper mapper;
+
+	@Override
+	public List<BrandDTO> findAll() {
+		return repository.findAll().stream().map(brand -> {
+			return mapper.map(brand, BrandDTO.class);
+		}).collect(Collectors.toList());
+	}
+
+	@Override
+	public BrandDTO findById(String id) {
+
+		Brand brand = repository.findById(id).orElse(null);
+
+		if (brand == null) {
+			return null;
+		}
+
+		return mapper.map(brand, BrandDTO.class);
+	}
+
+	@Override
+	public BrandDTO save(BrandDTO brand) {
+
+		Brand obj = repository.save(mapper.map(brand, Brand.class));
+		return mapper.map(obj, BrandDTO.class);
+		
+	}
+
+	@Override
+	public void delete(String id) {
+
+		Brand brand = repository.findById(id).orElse(null);
+
+		if (brand == null) {
+			return ;
+		}
+		
+		repository.delete(brand);
+	}
+
+}
