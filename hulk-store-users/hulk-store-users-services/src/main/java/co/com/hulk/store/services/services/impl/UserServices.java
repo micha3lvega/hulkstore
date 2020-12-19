@@ -83,6 +83,10 @@ public class UserServices implements IUserServices {
 	@Override
 	public UserDTO update(UserDTO user) {
 		User obj = mapper.map(user, User.class);
+		
+		//agregar validacion para no actualizar la contraseña
+		user.setPassword(user.getPassword());
+		
 		User userCreate = repository.save(obj);
 		return mapper.map(userCreate, UserDTO.class);
 	}
