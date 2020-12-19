@@ -42,8 +42,8 @@ buildNumber.properties
 */.settings/*
 */.project
 *.mvn*
-/hulk-store-users/hulk-store-users-commons/.settings/org.eclipse.jdt.apt.core.prefs
-/hulk-store-users/hulk-store-users-commons/.settings/org.eclipse.jdt.core.prefs
-/hulk-store-users/hulk-store-users-commons/.project
-/hulk-store-users/hulk-store-users-commons/.settings/org.eclipse.m2e.core.prefs
-/hulk-store-users/hulk-store-users-commons/.classpath
+
+*.classpath
+*.factorypath
+*.project
+*.settings
