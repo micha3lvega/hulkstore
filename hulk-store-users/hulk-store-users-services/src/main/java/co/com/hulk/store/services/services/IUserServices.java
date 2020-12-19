@@ -11,9 +11,11 @@ public interface IUserServices {
 
 	UserDTO update(UserDTO user);
 
-	UserDTO findById(String id) throws UserException;
+	UserDTO enable(String id) throws UserException;
 
 	UserDTO disable(String id) throws UserException;
+
+	UserDTO findById(String id) throws UserException;
 
 	UserDTO create(UserDTO user) throws UserException;
 

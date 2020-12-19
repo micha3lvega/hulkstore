@@ -43,13 +43,18 @@ public class UserRestController {
 	}
 
 	@GetMapping("/{id}")
-	public UserDTO findById(@PathVariable("id") String id) {
+	public UserDTO findById(@PathVariable("id") String id) throws UserException {
 		return iUserServices.findById(id);
 	}
 
 	@PutMapping("/disable/{id}")
 	public UserDTO disable(@PathVariable("id") String id) throws UserException {
 		return iUserServices.disable(id);
+	}
+
+	@PutMapping("/enable/{id}")
+	public UserDTO enable(@PathVariable("id") String id) throws UserException {
+		return iUserServices.enable(id);
 	}
 
 	@GetMapping("/login/{email}/{password}")

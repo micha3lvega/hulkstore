@@ -105,4 +105,13 @@ public class UserServices implements IUserServices {
 		return mapper.map(repository.save(user), UserDTO.class);
 	}
 
+	@Override
+	public UserDTO enable(String id) throws UserException {
+		
+		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
+		user.setState(UserState.ACTIVE);
+
+		return mapper.map(repository.save(user), UserDTO.class);
+	}
+
 }
