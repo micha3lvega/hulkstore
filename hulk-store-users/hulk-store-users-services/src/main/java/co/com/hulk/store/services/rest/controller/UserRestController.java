@@ -22,7 +22,7 @@ import co.com.hulk.store.services.services.IUserServices;
 
 @RestController
 @RequestMapping("/api/v1/user")
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST }, maxAge = 3600)
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT }, maxAge = 3600)
 public class UserRestController {
 
 	@Autowired
