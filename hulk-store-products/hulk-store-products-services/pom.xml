@@ -10,14 +10,13 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>hulk-store</groupId>
-	<artifactId>hulk-store-users-services</artifactId>
+	<artifactId>hulk-store-products-services</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>hulk-store-users-services</name>
-	<description>Proyecto para el manejo de los usuarios de hulk store</description>
+	<name>hulk-store-products-services</name>
+	<description>Proyecto para el manejo de los servicios de productos de hulk store</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>2020.0.0-RC1</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -55,19 +54,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-crypto</artifactId>
-		</dependency>
 
 		<!-- Local dependecies -->
 		<dependency>
 			<groupId>hulk-store</groupId>
-			<artifactId>hulk-store-users-commons</artifactId>
+			<artifactId>hulk-store-products-commons</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
@@ -87,22 +81,4 @@
 		</plugins>
 	</build>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-		</repository>
-	</repositories>
 </project>

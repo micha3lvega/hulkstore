@@ -2,6 +2,7 @@ package co.com.hulk.store.services.services;
 
 import java.util.List;
 
+import co.com.hulk.store.commons.dto.RolDTO;
 import co.com.hulk.store.commons.dto.UserDTO;
 import co.com.hulk.store.commons.exception.UserException;
 
@@ -20,8 +21,8 @@ public interface IUserServices {
 	UserDTO createCustomer(UserDTO user) throws UserException;
 
 	UserDTO createAdministrator(UserDTO user) throws UserException;
-	
-	UserDTO login(String email, String encodedPassword) throws UserException;
+
+	UserDTO login(RolDTO rol, String email, String encodedPassword) throws UserException;
 
 	UserDTO updatePassword(String id, String newPassword) throws UserException;
 }

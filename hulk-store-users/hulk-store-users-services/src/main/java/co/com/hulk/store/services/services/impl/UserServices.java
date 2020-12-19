@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import co.com.hulk.store.commons.dto.RolDTO;
 import co.com.hulk.store.commons.dto.UserDTO;
 import co.com.hulk.store.commons.exception.UserException;
 import co.com.hulk.store.commons.exception.UserExceptionCode;
@@ -98,10 +99,10 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
-	public UserDTO login(String email, String encodedPassword) throws UserException {
+	public UserDTO login(RolDTO rol, String email, String encodedPassword) throws UserException {
 
 		// find user by email
-		User user = repository.findByEmail(email);
+		User user = repository.findByEmailAndRol(email, mapper.map(rol, Rol.class));
 
 		if (user == null) {
 			throw new UserException(UserExceptionCode.USER_NO_EXITS);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.hulk.store.commons.dto.RolDTO;
 import co.com.hulk.store.commons.dto.UserDTO;
 import co.com.hulk.store.commons.exception.UserException;
 import co.com.hulk.store.services.services.IUserServices;
@@ -62,10 +63,10 @@ public class UserRestController {
 		return iUserServices.enable(id);
 	}
 
-	@GetMapping("/login/{email}/{password}")
-	public UserDTO login(@PathVariable("email") String email, @PathVariable("password") String password)
+	@GetMapping("/login/{rol}/{email}/{password}")
+	public UserDTO login(@PathVariable("rol") RolDTO rol, @PathVariable("email") String email, @PathVariable("password") String password)
 			throws UserException {
-		return iUserServices.login(email, password);
+		return iUserServices.login(rol, email, password);
 	}
 
 	@PutMapping("/updatePassword/{id}/{newPassword}")
