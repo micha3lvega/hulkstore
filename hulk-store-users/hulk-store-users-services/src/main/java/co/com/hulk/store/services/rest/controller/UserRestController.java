@@ -63,7 +63,7 @@ public class UserRestController {
 		return iUserServices.login(email, password);
 	}
 
-	@PutMapping("/updatePassword/{id}/{password}")
+	@PutMapping("/updatePassword/{id}/{newPassword}")
 	public UserDTO updatePassword(@PathVariable("id") String id, @PathVariable("newPassword") String newPassword)
 			throws UserException {
 		return iUserServices.updatePassword(id, newPassword);
