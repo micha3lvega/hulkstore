@@ -17,8 +17,10 @@ public interface IUserServices {
 
 	UserDTO findById(String id) throws UserException;
 
-	UserDTO create(UserDTO user) throws UserException;
+	UserDTO createCustomer(UserDTO user) throws UserException;
 
+	UserDTO createAdministrator(UserDTO user) throws UserException;
+	
 	UserDTO login(String email, String encodedPassword) throws UserException;
 
 	UserDTO updatePassword(String id, String newPassword) throws UserException;

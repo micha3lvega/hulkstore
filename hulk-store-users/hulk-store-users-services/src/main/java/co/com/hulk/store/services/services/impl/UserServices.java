@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import co.com.hulk.store.commons.dto.UserDTO;
 import co.com.hulk.store.commons.exception.UserException;
 import co.com.hulk.store.commons.exception.UserExceptionCode;
+import co.com.hulk.store.services.model.Rol;
 import co.com.hulk.store.services.model.User;
 import co.com.hulk.store.services.model.UserState;
 import co.com.hulk.store.services.repository.UserRepository;
@@ -38,24 +39,47 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
-	public UserDTO create(UserDTO user) throws UserException {
+	public UserDTO createAdministrator(UserDTO user) throws UserException {
 
 		// find by repeat email
 		User userEmail = repository.findByEmail(user.getEmail());
 
-		if (userEmail != null) {
+		if (userEmail != null && userEmail.getRol().equals(Rol.ADMINISTRATOR)) {
 			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
 		}
 
 		User obj = mapper.map(user, User.class);
 		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
 		obj.setState(UserState.ACTIVE);
+		obj.setRol(Rol.ADMINISTRATOR);
+
+		User userCreate = repository.insert(obj);
+		return mapper.map(userCreate, UserDTO.class);
+
+	}
+	
+	@Override
+	public UserDTO createCustomer(UserDTO user) throws UserException {
+
+		// find by repeat email
+		User userEmail = repository.findByEmail(user.getEmail());
+
+		if (userEmail != null && userEmail.getRol().equals(Rol.CUSTOMER)) {
+			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
+		}
+
+		User obj = mapper.map(user, User.class);
+		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
+		obj.setState(UserState.ACTIVE);
+		obj.setRol(Rol.CUSTOMER);
 
 		User userCreate = repository.insert(obj);
 		return mapper.map(userCreate, UserDTO.class);
 
 	}
 
+	
+	
 	@Override
 	public UserDTO update(UserDTO user) {
 		User obj = mapper.map(user, User.class);

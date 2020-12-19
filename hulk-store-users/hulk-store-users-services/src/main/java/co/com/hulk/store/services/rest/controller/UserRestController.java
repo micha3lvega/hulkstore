@@ -27,9 +27,14 @@ public class UserRestController {
 	@Autowired
 	private IUserServices iUserServices;
 
-	@PostMapping
-	public UserDTO create(@Valid @RequestBody UserDTO user) throws UserException {
-		return iUserServices.create(user);
+	@PostMapping("/admin")
+	public UserDTO createAdministrator(@Valid @RequestBody UserDTO user) throws UserException {
+		return iUserServices.createAdministrator(user);
+	}
+
+	@PostMapping("/customer")
+	public UserDTO createCustomer(@Valid @RequestBody UserDTO user) throws UserException {
+		return iUserServices.createCustomer(user);
 	}
 
 	@GetMapping
