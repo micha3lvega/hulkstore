@@ -9,9 +9,9 @@ public interface IUserServices {
 
 	List<UserDTO> findAll();
 
-	UserDTO findById(String id);
-
 	UserDTO update(UserDTO user);
+
+	UserDTO findById(String id) throws UserException;
 
 	UserDTO disable(String id) throws UserException;
 

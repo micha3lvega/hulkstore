@@ -64,8 +64,8 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
-	public UserDTO findById(String id) {
-		User user = repository.findById(id).orElse(null);
+	public UserDTO findById(String id) throws UserException {
+		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
 		return mapper.map(user, UserDTO.class);
 	}
 
