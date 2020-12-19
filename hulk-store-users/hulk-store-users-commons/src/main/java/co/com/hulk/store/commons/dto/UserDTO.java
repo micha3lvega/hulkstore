@@ -23,7 +23,7 @@ public class UserDTO implements Serializable {
 	private static final long serialVersionUID = 4465809113751598045L;
 
 	private String id;
-	
+
 	@NotBlank(message = "El nombre es obligatorio")
 	@Size(min = 3, max = 20, message = "El nombre tiene que tener entre 3 y 20 caracteres")
 	private String name;
@@ -40,14 +40,17 @@ public class UserDTO implements Serializable {
 	@NotBlank(message = "El telefono es obligatorio")
 	@Size(min = 3, max = 10, message = "El telefono tiene que tener entre 3 y 10 digitos")
 	private String mobile;
-	
+
 	@NotEmpty(message = "La contraseña es obligatoria")
 	@Size(min = 6, max = 50, message = "El contraseña tiene que tener entre 6 y 50 digitos")
 	private String password;
 
 	private Date createDate;
-	
+
 	private Date lastUpdate;
-	
+
+	private RolDTO rol;
+
 	private UserStateDTO state;
+
 }
