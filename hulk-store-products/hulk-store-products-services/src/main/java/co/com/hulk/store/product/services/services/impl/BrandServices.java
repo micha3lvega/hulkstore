@@ -47,7 +47,12 @@ public class BrandServices implements IBrandServices {
 	@Transactional
 	public BrandDTO save(BrandDTO brand) {
 
-		Brand obj = repository.save(mapper.map(brand, Brand.class));
+		if (brand.getId() != null) {
+			Brand obj = repository.save(mapper.map(brand, Brand.class));
+			return mapper.map(obj, BrandDTO.class);
+		}
+		
+		Brand obj = repository.insert(mapper.map(brand, Brand.class));
 		return mapper.map(obj, BrandDTO.class);
 
 	}

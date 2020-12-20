@@ -60,9 +60,15 @@ public class UnitOfMeasurementServices implements IUnitOfMeasurementServices {
 	@Override
 	@Transactional
 	public UnitOfMeasurementDTO save(UnitOfMeasurementDTO unitOfMeasurementDTO) {
+		
+		if (unitOfMeasurementDTO.getId() != null) {
+			UnitOfMeasurement unitOfMeasurement = repository
+					.save(mapper.map(unitOfMeasurementDTO, UnitOfMeasurement.class));
+			return mapper.map(unitOfMeasurement, UnitOfMeasurementDTO.class);
+		}
 
 		UnitOfMeasurement unitOfMeasurement = repository
-				.save(mapper.map(unitOfMeasurementDTO, UnitOfMeasurement.class));
+				.insert(mapper.map(unitOfMeasurementDTO, UnitOfMeasurement.class));
 		return mapper.map(unitOfMeasurement, UnitOfMeasurementDTO.class);
 
 	}

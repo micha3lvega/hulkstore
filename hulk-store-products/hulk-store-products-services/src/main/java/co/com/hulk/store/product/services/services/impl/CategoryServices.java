@@ -47,6 +47,11 @@ public class CategoryServices implements ICategoryServices {
 	@Transactional
 	public CategoryDTO save(CategoryDTO dto) {
 
+		if (dto.getId() == null) {
+			Category obj = repository.insert(mapper.map(dto, Category.class));
+			return mapper.map(obj, CategoryDTO.class);
+		}
+		
 		Category obj = repository.save(mapper.map(dto, Category.class));
 		return mapper.map(obj, CategoryDTO.class);
 
