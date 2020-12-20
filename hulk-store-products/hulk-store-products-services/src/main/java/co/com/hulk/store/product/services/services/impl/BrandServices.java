@@ -58,7 +58,7 @@ public class BrandServices implements IBrandServices {
 
 		if (brand.getId() != null) {
 
-			if (findBrand != null && !findBrand.getName().equals(brand.getName())) {
+			if (findBrand != null && !findBrand.getId().equals(brand.getId())) {
 				throw new BrandException(BrandCodeException.BRAND_ALREADY_EXISTS);
 			}
 
