@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.hulk.store.product.services.model.Product;
 import co.com.hulk.store.product.services.repository.ProductRepository;
@@ -25,6 +26,7 @@ public class ProductServices implements IProductServices {
 	private ModelMapper mapper;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<ProductDTO> findAll() {
 		return repository.findAll().stream().map(product -> {
 			return mapper.map(product, ProductDTO.class);
@@ -32,6 +34,7 @@ public class ProductServices implements IProductServices {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ProductDTO findById(String id) throws ProductException {
 
 		Product product = repository.findById(id).orElseThrow(() -> new ProductException(ProductCodeException.PRODUCT_NO_EXISTS));
@@ -44,6 +47,7 @@ public class ProductServices implements IProductServices {
 	}
 
 	@Override
+	@Transactional
 	public ProductDTO create(ProductDTO dto) throws ProductException {
 		
 		//Normalizar el nombre
@@ -64,6 +68,7 @@ public class ProductServices implements IProductServices {
 	}
 
 	@Override
+	@Transactional
 	public ProductDTO update(ProductDTO dto) throws ProductException {
 
 		Product product = mapper.map(dto, Product.class);
