@@ -12,6 +12,7 @@ public interface IUnitOfMeasurementServices {
 
 	UnitOfMeasurementDTO findById(String id);
 
-	UnitOfMeasurementDTO save(UnitOfMeasurementDTO brand);
+	UnitOfMeasurementDTO save(UnitOfMeasurementDTO unitOfMeasurementDTO);
+	
 
 }
