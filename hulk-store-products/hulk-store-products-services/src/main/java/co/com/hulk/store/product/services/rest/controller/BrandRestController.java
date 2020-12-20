@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.hulk.store.product.services.services.IBrandServices;
 import co.com.hulk.store.products.commons.dto.BrandDTO;
+import co.com.hulk.store.products.commons.exception.brand.BrandException;
 
 @RestController
 @RequestMapping("/api/v1/brand")
@@ -32,17 +33,17 @@ public class BrandRestController {
 	}
 
 	@GetMapping("/{id}")
-	public BrandDTO findById(@PathVariable("id") String id) {
+	public BrandDTO findById(@PathVariable("id") String id) throws BrandException {
 		return brandServices.findById(id);
 	}
 
 	@PostMapping
-	public BrandDTO save(@Valid @RequestBody BrandDTO brand) {
+	public BrandDTO save(@Valid @RequestBody BrandDTO brand) throws BrandException {
 		return brandServices.save(brand);
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") String id) {
+	public void delete(@PathVariable("id") String id) throws BrandException {
 		brandServices.delete(id);
 	}
 }

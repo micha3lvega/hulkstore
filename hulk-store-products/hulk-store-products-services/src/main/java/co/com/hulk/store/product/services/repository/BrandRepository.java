@@ -6,4 +6,6 @@ import co.com.hulk.store.product.services.model.Brand;
 
 public interface BrandRepository extends MongoRepository<Brand, String> {
 
+	Brand findByName(String name);
+
 }
