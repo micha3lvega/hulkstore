@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.hulk.store.product.services.services.ICategoryService;
+import co.com.hulk.store.product.services.services.ICategoryServices;
 import co.com.hulk.store.products.commons.dto.CategoryDTO;
 
 @RestController
@@ -24,7 +24,7 @@ import co.com.hulk.store.products.commons.dto.CategoryDTO;
 public class CategoryRestController {
 
 	@Autowired
-	private ICategoryService iCategoryService;
+	private ICategoryServices iCategoryService;
 
 	@GetMapping
 	public List<CategoryDTO> findAll() {
