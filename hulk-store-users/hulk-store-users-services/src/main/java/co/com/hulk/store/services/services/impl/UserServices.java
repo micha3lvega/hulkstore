@@ -51,7 +51,7 @@ public class UserServices implements IUserServices {
 		// find by repeat email
 		User userEmail = repository.findByEmailAndRol(user.getEmail(), Rol.ADMINISTRATOR);
 
-		if (userEmail != null && userEmail.getRol().equals(Rol.ADMINISTRATOR)) {
+		if (userEmail != null) {
 			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
 		}
 
@@ -75,7 +75,7 @@ public class UserServices implements IUserServices {
 		// find by repeat email
 		User userEmail = repository.findByEmailAndRol(user.getEmail(), Rol.CUSTOMER);
 
-		if (userEmail != null && userEmail.getRol().equals(Rol.CUSTOMER)) {
+		if (userEmail != null) {
 			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
 		}
 
