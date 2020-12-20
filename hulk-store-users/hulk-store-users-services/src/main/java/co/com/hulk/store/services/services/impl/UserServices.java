@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.hulk.store.commons.dto.RolDTO;
 import co.com.hulk.store.commons.dto.UserDTO;
@@ -31,6 +32,7 @@ public class UserServices implements IUserServices {
 	private ModelMapper mapper;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<UserDTO> findAll() {
 
 		return repository.findAll().stream().map(user -> {
@@ -40,6 +42,7 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
+	@Transactional
 	public UserDTO createAdministrator(UserDTO user) throws UserException {
 
 		// find by repeat email
@@ -58,8 +61,9 @@ public class UserServices implements IUserServices {
 		return mapper.map(userCreate, UserDTO.class);
 
 	}
-	
+
 	@Override
+	@Transactional
 	public UserDTO createCustomer(UserDTO user) throws UserException {
 
 		// find by repeat email
@@ -79,26 +83,27 @@ public class UserServices implements IUserServices {
 
 	}
 
-	
-	
 	@Override
+	@Transactional
 	public UserDTO update(UserDTO user) {
 		User obj = mapper.map(user, User.class);
-		
-		//agregar validacion para no actualizar la contraseña
+
+		// agregar validacion para no actualizar la contraseña
 		user.setPassword(user.getPassword());
-		
+
 		User userCreate = repository.save(obj);
 		return mapper.map(userCreate, UserDTO.class);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public UserDTO findById(String id) throws UserException {
 		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
 		return mapper.map(user, UserDTO.class);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public UserDTO login(RolDTO rol, String email, String encodedPassword) throws UserException {
 
 		// find user by email
@@ -117,6 +122,7 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
+	@Transactional
 	public UserDTO disable(String id) throws UserException {
 
 		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
@@ -126,17 +132,19 @@ public class UserServices implements IUserServices {
 	}
 
 	@Override
+	@Transactional
 	public UserDTO updatePassword(String id, String newPassword) throws UserException {
-		
+
 		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
 		user.setPassword(passwordEncoder.encode(newPassword));
-		
+
 		return mapper.map(repository.save(user), UserDTO.class);
 	}
 
 	@Override
+	@Transactional
 	public UserDTO enable(String id) throws UserException {
-		
+
 		User user = repository.findById(id).orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
 		user.setState(UserState.ACTIVE);
 
