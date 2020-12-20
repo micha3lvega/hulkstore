@@ -55,7 +55,7 @@ public class CategoryServices implements ICategoryServices {
 
 		if (dto.getId() == null) {
 
-			if (findCategory != null && !findCategory.getName().equals(dto.getName())) {
+			if (findCategory != null && !findCategory.getId().equals(dto.getId())) {
 				throw new CategoryException(CategoryCodeException.CATEGORY_ALREADY_EXISTS);
 			}
 
