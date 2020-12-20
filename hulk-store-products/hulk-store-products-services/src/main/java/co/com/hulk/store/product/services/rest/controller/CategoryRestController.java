@@ -41,8 +41,8 @@ public class CategoryRestController {
 		return iCategoryService.save(brand);
 	}
 
-	@DeleteMapping
-	public void delete(String id) {
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id")String id) {
 		iCategoryService.delete(id);
 	}
 

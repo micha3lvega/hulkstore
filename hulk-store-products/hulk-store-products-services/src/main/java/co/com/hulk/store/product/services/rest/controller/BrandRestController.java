@@ -22,27 +22,27 @@ import co.com.hulk.store.products.commons.dto.BrandDTO;
 @RequestMapping("/api/v1/brand")
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE }, maxAge = 3600)
 public class BrandRestController {
-	
+
 	@Autowired
 	private IBrandServices brandServices;
-	
+
 	@GetMapping
-	public List<BrandDTO> findAll(){
+	public List<BrandDTO> findAll() {
 		return brandServices.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
 	public BrandDTO findById(@PathVariable("id") String id) {
 		return brandServices.findById(id);
 	}
-	
+
 	@PostMapping
 	public BrandDTO save(@Valid @RequestBody BrandDTO brand) {
 		return brandServices.save(brand);
 	}
 
-	@DeleteMapping
-	public void delete(String id) {
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") String id) {
 		brandServices.delete(id);
 	}
 }
