@@ -5,9 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -28,9 +26,7 @@ public class ProductDTO extends ObjectGenericDTO {
 
 	private static final long serialVersionUID = 909506602456072666L;
 
-	@Size(min = 100000, max = 999999, message = "El codigo debe tener 6 caracteres")
-	@NotBlank(message = "El codigo es obligatorio")
-	private Integer code;
+	private String code;
 
 	@DecimalMin(value = "0.0", inclusive = true, message = "El precio unitario debe ser mayor o igual a 0")
 	private BigDecimal unitPrice;
