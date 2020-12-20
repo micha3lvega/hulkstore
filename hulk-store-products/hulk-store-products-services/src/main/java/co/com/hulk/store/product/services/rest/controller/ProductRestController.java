@@ -42,7 +42,7 @@ public class ProductRestController {
 	}
 	
 	@PutMapping
-	public ProductDTO update(ProductDTO dto) {
+	public ProductDTO update(@Valid @RequestBody ProductDTO dto) {
 		return service.update(dto);
 	}
 }
