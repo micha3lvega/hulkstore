@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.com.hulk.store.products.commons.dto.CategoryDTO;
 
-public interface ICategoryService {
+public interface ICategoryServices {
 
 	List<CategoryDTO> findAll();
 

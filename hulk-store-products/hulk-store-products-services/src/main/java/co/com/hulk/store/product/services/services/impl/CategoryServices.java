@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import co.com.hulk.store.product.services.model.Category;
 import co.com.hulk.store.product.services.repository.CategoryRepository;
-import co.com.hulk.store.product.services.services.ICategoryService;
+import co.com.hulk.store.product.services.services.ICategoryServices;
 import co.com.hulk.store.products.commons.dto.CategoryDTO;
 
 @Service
-public class CategoryServices implements ICategoryService {
+public class CategoryServices implements ICategoryServices {
 
 	@Autowired
 	private CategoryRepository repository;
