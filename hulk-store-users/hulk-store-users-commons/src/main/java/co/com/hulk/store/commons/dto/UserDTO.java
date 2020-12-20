@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "name", "lastName", "email", "mobile", "password", "createDate", "createDate" })
+@JsonPropertyOrder({ "id", "name", "lastName", "email", "mobile", "password", "createDate", "lastUpdate" })
 public class UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 4465809113751598045L;
