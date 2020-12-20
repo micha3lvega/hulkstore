@@ -49,7 +49,7 @@ public class UserServices implements IUserServices {
 		user.setEmail(user.getEmail().toLowerCase());
 
 		// find by repeat email
-		User userEmail = repository.findByEmail(user.getEmail());
+		User userEmail = repository.findByEmailAndRol(user.getEmail(), Rol.ADMINISTRATOR);
 
 		if (userEmail != null && userEmail.getRol().equals(Rol.ADMINISTRATOR)) {
 			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
@@ -73,7 +73,7 @@ public class UserServices implements IUserServices {
 		user.setEmail(user.getEmail().toLowerCase());
 
 		// find by repeat email
-		User userEmail = repository.findByEmail(user.getEmail());
+		User userEmail = repository.findByEmailAndRol(user.getEmail(), Rol.CUSTOMER);
 
 		if (userEmail != null && userEmail.getRol().equals(Rol.CUSTOMER)) {
 			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
