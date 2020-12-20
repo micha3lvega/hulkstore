@@ -3,6 +3,7 @@ package co.com.hulk.store.products.commons.dto;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -28,22 +29,30 @@ public class ProductDTO extends ObjectGenericDTO {
 
 	private String code;
 
+	@NotNull(message = "El precio unitario del producto es obligatorio")
 	@DecimalMin(value = "0.0", inclusive = true, message = "El precio unitario debe ser mayor o igual a 0")
 	private BigDecimal unitPrice;
 
+	@NotNull(message = "El stock minimo del producto es obligatorio")
 	@Min(value = 0, message = "El stock minimo debe ser minimo de 0")
 	private Integer minStock;
 
+	@NotNull(message = "El stock actual del producto es obligatorio")
 	@Min(value = 0, message = "El stock actual debe ser minimo de 0")
 	private Integer actualStock;
 
-	@NotNull
 	private Date entryDate;
 
+	@Valid
+	@NotNull(message = "La marca es obligatoria")
 	private BrandDTO brand;
 
+	@Valid
+	@NotNull(message = "La categoria es obligatoria")
 	private CategoryDTO category;
 
+	@Valid
+	@NotNull(message = "La unidad de medida es obligatoria")
 	private UnitOfMeasurementDTO unitOfMeasurement;
 
 }
