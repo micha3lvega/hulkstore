@@ -3,7 +3,7 @@ package co.com.hulk.store.product.services.services;
 import java.util.List;
 
 import co.com.hulk.store.products.commons.dto.ProductDTO;
-import co.com.hulk.store.products.commons.exception.ProductException;
+import co.com.hulk.store.products.commons.exception.product.ProductException;
 
 public interface IProductServices {
 

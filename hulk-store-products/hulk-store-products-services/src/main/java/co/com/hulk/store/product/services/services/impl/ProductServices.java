@@ -13,8 +13,8 @@ import co.com.hulk.store.product.services.repository.ProductRepository;
 import co.com.hulk.store.product.services.services.IProductServices;
 import co.com.hulk.store.product.services.util.Util;
 import co.com.hulk.store.products.commons.dto.ProductDTO;
-import co.com.hulk.store.products.commons.exception.ProductCodeException;
-import co.com.hulk.store.products.commons.exception.ProductException;
+import co.com.hulk.store.products.commons.exception.product.ProductCodeException;
+import co.com.hulk.store.products.commons.exception.product.ProductException;
 
 @Service
 public class ProductServices implements IProductServices {
