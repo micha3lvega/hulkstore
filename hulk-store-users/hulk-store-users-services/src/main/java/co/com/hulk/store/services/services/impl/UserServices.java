@@ -45,6 +45,9 @@ public class UserServices implements IUserServices {
 	@Transactional
 	public UserDTO createAdministrator(UserDTO user) throws UserException {
 
+		// Normalizar correo
+		user.setEmail(user.getEmail().toLowerCase());
+
 		// find by repeat email
 		User userEmail = repository.findByEmail(user.getEmail());
 
@@ -66,6 +69,9 @@ public class UserServices implements IUserServices {
 	@Transactional
 	public UserDTO createCustomer(UserDTO user) throws UserException {
 
+		// Normalizar correo
+		user.setEmail(user.getEmail().toLowerCase());
+
 		// find by repeat email
 		User userEmail = repository.findByEmail(user.getEmail());
 
@@ -86,6 +92,10 @@ public class UserServices implements IUserServices {
 	@Override
 	@Transactional
 	public UserDTO update(UserDTO user) {
+
+		// Normalizar correo
+		user.setEmail(user.getEmail().toLowerCase());
+
 		User obj = mapper.map(user, User.class);
 
 		// agregar validacion para no actualizar la contraseña
@@ -106,6 +116,14 @@ public class UserServices implements IUserServices {
 	@Transactional(readOnly = true)
 	public UserDTO login(RolDTO rol, String email, String encodedPassword) throws UserException {
 
+		// Validar que el correo no sea nulo
+		if (email == null) {
+			throw new UserException(UserExceptionCode.INVALID_EMAIL);
+		}
+
+		// Normalizar correo
+		email = email.toLowerCase();
+
 		// find user by email
 		User user = repository.findByEmailAndRol(email, mapper.map(rol, Rol.class));
 
@@ -118,7 +136,7 @@ public class UserServices implements IUserServices {
 			return mapper.map(user, UserDTO.class);
 		}
 
-		return null;
+		throw new UserException(UserExceptionCode.LOGIN_ERROR);
 	}
 
 	@Override
