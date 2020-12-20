@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.hulk.store.product.services.model.UnitOfMeasurement;
 import co.com.hulk.store.product.services.repository.UnitOfMeasurementRepository;
@@ -22,6 +23,7 @@ public class UnitOfMeasurementServices implements IUnitOfMeasurementServices {
 	private ModelMapper mapper;
 
 	@Override
+	@Transactional
 	public void delete(String id) {
 
 		UnitOfMeasurement unitOfMeasurement = repository.findById(id).orElse(null);
@@ -35,6 +37,7 @@ public class UnitOfMeasurementServices implements IUnitOfMeasurementServices {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<UnitOfMeasurementDTO> findAll() {
 		return repository.findAll().stream().map(unitOfMeasurement -> {
 			return mapper.map(unitOfMeasurement, UnitOfMeasurementDTO.class);
@@ -42,6 +45,7 @@ public class UnitOfMeasurementServices implements IUnitOfMeasurementServices {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public UnitOfMeasurementDTO findById(String id) {
 
 		UnitOfMeasurement unitOfMeasurement = repository.findById(id).orElse(null);
@@ -54,11 +58,13 @@ public class UnitOfMeasurementServices implements IUnitOfMeasurementServices {
 	}
 
 	@Override
+	@Transactional
 	public UnitOfMeasurementDTO save(UnitOfMeasurementDTO unitOfMeasurementDTO) {
 
-		UnitOfMeasurement unitOfMeasurement = repository.save(mapper.map(unitOfMeasurementDTO, UnitOfMeasurement.class));		
+		UnitOfMeasurement unitOfMeasurement = repository
+				.save(mapper.map(unitOfMeasurementDTO, UnitOfMeasurement.class));
 		return mapper.map(unitOfMeasurement, UnitOfMeasurementDTO.class);
-		
+
 	}
 
 }
