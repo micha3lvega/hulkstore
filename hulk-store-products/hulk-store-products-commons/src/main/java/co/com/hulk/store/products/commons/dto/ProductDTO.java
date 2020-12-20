@@ -27,7 +27,7 @@ public class ProductDTO extends ObjectGenericDTO {
 
 	private static final long serialVersionUID = 909506602456072666L;
 
-	private String code;
+	private Long code;
 
 	@NotNull(message = "El precio unitario del producto es obligatorio")
 	@DecimalMin(value = "0.0", inclusive = true, message = "El precio unitario debe ser mayor o igual a 0")
