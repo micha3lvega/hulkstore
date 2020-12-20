@@ -6,4 +6,6 @@ import co.com.hulk.store.product.services.model.Category;
 
 public interface CategoryRepository extends MongoRepository<Category, String> {
 
+	Category findByName(String name);
+
 }

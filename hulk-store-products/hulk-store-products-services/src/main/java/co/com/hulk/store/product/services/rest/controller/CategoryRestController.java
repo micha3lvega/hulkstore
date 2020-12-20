@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.hulk.store.product.services.services.ICategoryServices;
 import co.com.hulk.store.products.commons.dto.CategoryDTO;
+import co.com.hulk.store.products.commons.exception.category.CategoryException;
 
 @RestController
 @RequestMapping("/api/v1/category")
@@ -32,17 +33,17 @@ public class CategoryRestController {
 	}
 
 	@GetMapping("/{id}")
-	public CategoryDTO findById(@PathVariable("id") String id) {
+	public CategoryDTO findById(@PathVariable("id") String id) throws CategoryException {
 		return iCategoryService.findById(id);
 	}
 
 	@PostMapping
-	public CategoryDTO save(@Valid @RequestBody CategoryDTO brand) {
+	public CategoryDTO save(@Valid @RequestBody CategoryDTO brand) throws CategoryException {
 		return iCategoryService.save(brand);
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id")String id) {
+	public void delete(@PathVariable("id")String id) throws CategoryException {
 		iCategoryService.delete(id);
 	}
 

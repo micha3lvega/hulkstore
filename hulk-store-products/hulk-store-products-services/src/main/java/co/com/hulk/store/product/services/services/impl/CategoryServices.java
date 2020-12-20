@@ -11,7 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.hulk.store.product.services.model.Category;
 import co.com.hulk.store.product.services.repository.CategoryRepository;
 import co.com.hulk.store.product.services.services.ICategoryServices;
+import co.com.hulk.store.product.services.util.Util;
 import co.com.hulk.store.products.commons.dto.CategoryDTO;
+import co.com.hulk.store.products.commons.exception.category.CategoryCodeException;
+import co.com.hulk.store.products.commons.exception.category.CategoryException;
 
 @Service
 public class CategoryServices implements ICategoryServices {
@@ -32,26 +35,38 @@ public class CategoryServices implements ICategoryServices {
 
 	@Override
 	@Transactional(readOnly = true)
-	public CategoryDTO findById(String id) {
+	public CategoryDTO findById(String id) throws CategoryException {
 
-		Category category = repository.findById(id).orElse(null);
-
-		if (category == null) {
-			return null;
-		}
-
+		Category category = repository.findById(id)
+				.orElseThrow(() -> new CategoryException(CategoryCodeException.CATEGORY_NO_EXISTS));
 		return mapper.map(category, CategoryDTO.class);
+
 	}
 
 	@Override
 	@Transactional
-	public CategoryDTO save(CategoryDTO dto) {
+	public CategoryDTO save(CategoryDTO dto) throws CategoryException {
+
+		// Normalizar el nombre
+		dto.setName(Util.capitalizeString(dto.getName()));
+
+		// Buscar si ya existe una categoria con ese nombre
+		Category findCategory = repository.findByName(dto.getName());
 
 		if (dto.getId() == null) {
+
+			if (findCategory != null && !findCategory.getName().equals(dto.getName())) {
+				throw new CategoryException(CategoryCodeException.CATEGORY_ALREADY_EXISTS);
+			}
+
 			Category obj = repository.insert(mapper.map(dto, Category.class));
 			return mapper.map(obj, CategoryDTO.class);
 		}
-		
+
+		if (findCategory != null) {
+			throw new CategoryException(CategoryCodeException.CATEGORY_ALREADY_EXISTS);
+		}
+
 		Category obj = repository.save(mapper.map(dto, Category.class));
 		return mapper.map(obj, CategoryDTO.class);
 
@@ -59,15 +74,12 @@ public class CategoryServices implements ICategoryServices {
 
 	@Override
 	@Transactional
-	public void delete(String id) {
+	public void delete(String id) throws CategoryException {
 
-		Category category = repository.findById(id).orElse(null);
-
-		if (category == null) {
-			return;
-		}
-
+		Category category = repository.findById(id)
+				.orElseThrow(() -> new CategoryException(CategoryCodeException.CATEGORY_NO_EXISTS));
 		repository.delete(category);
+
 	}
 
 }
