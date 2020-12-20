@@ -3,6 +3,9 @@ package co.com.hulk.store.product.services.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +23,10 @@ public class Category implements Serializable {
 
 	private String name;
 
+	@CreatedDate
 	private Date createDate;
 
+	@LastModifiedDate
 	private Date lastUpdate;
 
 }
