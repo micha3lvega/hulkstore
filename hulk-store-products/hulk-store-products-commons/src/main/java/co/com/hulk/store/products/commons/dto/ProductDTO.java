@@ -28,17 +28,17 @@ public class ProductDTO extends ObjectGenericDTO {
 
 	private static final long serialVersionUID = 909506602456072666L;
 
-	@Size(min = 100000, max = 999999, message = "El codigo tiene que tener 6 caracteres")
+	@Size(min = 100000, max = 999999, message = "El codigo debe tener 6 caracteres")
 	@NotBlank(message = "El codigo es obligatorio")
 	private Integer code;
 
-	@DecimalMin(value = "0.0", inclusive = true, message = "El precio unitario debe ser mayor a 0")
+	@DecimalMin(value = "0.0", inclusive = true, message = "El precio unitario debe ser mayor o igual a 0")
 	private BigDecimal unitPrice;
 
-	@Min(value = 0, message = "El stock minimo debe ser 0")
+	@Min(value = 0, message = "El stock minimo debe ser minimo de 0")
 	private Integer minStock;
 
-	@Min(value = 0, message = "El stock actual debe ser 0")
+	@Min(value = 0, message = "El stock actual debe ser minimo de 0")
 	private Integer actualStock;
 
 	@NotNull
