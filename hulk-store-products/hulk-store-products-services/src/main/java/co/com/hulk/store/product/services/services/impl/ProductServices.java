@@ -85,7 +85,7 @@ public class ProductServices implements IProductServices {
 		Product findProduct = repository.findByName(dto.getName());
 
 		// Arrojar una excepcion si ya existe otro producto con ese nombre
-		if (findProduct != null && !dto.getName().equals(findProduct.getName())) {
+		if (findProduct != null && !dto.getId().equals(findProduct.getId())) {
 			throw new ProductException(ProductCodeException.PRODUCT_ALREADY_EXISTS);
 		}
 
