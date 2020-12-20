@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.hulk.store.product.services.services.IProductServices;
 import co.com.hulk.store.products.commons.dto.ProductDTO;
+import co.com.hulk.store.products.commons.exception.ProductException;
 
 @RestController
 @RequestMapping("/api/v1/product")
@@ -32,17 +33,17 @@ public class ProductRestController {
 	}
 
 	@GetMapping("/{id}")
-	public ProductDTO findById(@PathVariable("id") String id) {
+	public ProductDTO findById(@PathVariable("id") String id) throws ProductException {
 		return service.findById(id);
 	}
 	
 	@PostMapping
-	public ProductDTO create(@Valid @RequestBody ProductDTO dto) {
+	public ProductDTO create(@Valid @RequestBody ProductDTO dto) throws ProductException {
 		return service.create(dto);
 	}
 	
 	@PutMapping
-	public ProductDTO update(@Valid @RequestBody ProductDTO dto) {
+	public ProductDTO update(@Valid @RequestBody ProductDTO dto) throws ProductException {
 		return service.update(dto);
 	}
 }
