@@ -65,7 +65,7 @@ public class UnitOfMeasurementServices implements IUnitOfMeasurementServices {
 		
 		if (unitOfMeasurementDTO.getId() != null) {
 			
-			if (findUnitOfMeasurement != null && !findUnitOfMeasurement.getName().equals(unitOfMeasurementDTO.getName())) {
+			if (findUnitOfMeasurement != null && !findUnitOfMeasurement.getId().equals(unitOfMeasurementDTO.getId())) {
 				throw new UnitOfMeasurementException(UnitOfMeasurementCodeException.UNIT_OF_MEASUREMENT_ALREADY_EXISTS);
 			}
 			
