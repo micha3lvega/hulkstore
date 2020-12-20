@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.hulk.store.product.services.model.Category;
 import co.com.hulk.store.product.services.repository.CategoryRepository;
@@ -22,6 +23,7 @@ public class CategoryServices implements ICategoryServices {
 	private ModelMapper mapper;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<CategoryDTO> findAll() {
 		return repository.findAll().stream().map(category -> {
 			return mapper.map(category, CategoryDTO.class);
@@ -29,6 +31,7 @@ public class CategoryServices implements ICategoryServices {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public CategoryDTO findById(String id) {
 
 		Category category = repository.findById(id).orElse(null);
@@ -41,23 +44,25 @@ public class CategoryServices implements ICategoryServices {
 	}
 
 	@Override
+	@Transactional
 	public CategoryDTO save(CategoryDTO dto) {
 
 		Category obj = repository.save(mapper.map(dto, Category.class));
 		return mapper.map(obj, CategoryDTO.class);
-		
+
 	}
 
 	@Override
+	@Transactional
 	public void delete(String id) {
 
 		Category category = repository.findById(id).orElse(null);
 
 		if (category == null) {
-			return ;
+			return;
 		}
-		
+
 		repository.delete(category);
 	}
-	
+
 }
