@@ -1,5 +1,6 @@
 package co.com.hulk.store.product.services.services.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,6 +59,11 @@ public class ProductServices implements IProductServices {
 		
 		if (findProduct != null) {
 			throw new ProductException(ProductCodeException.PRODUCT_ALREADY_EXISTS);
+		}
+		
+		// Asignar fecha de ingreso si es nula
+		if (dto.getEntryDate() == null) {
+			dto.setEntryDate(new Date());
 		}
 				
 		Product product = mapper.map(dto, Product.class);
