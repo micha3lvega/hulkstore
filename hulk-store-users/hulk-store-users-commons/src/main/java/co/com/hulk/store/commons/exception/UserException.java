@@ -5,7 +5,7 @@ public class UserException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public UserException(UserExceptionCode exceptionCode) {
-		super(exceptionCode.getCodigo() + "-" + exceptionCode.getMensaje());
+		super(exceptionCode.getMensaje());
 	}
 
 	public UserException(String mensaje) {
