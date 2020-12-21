@@ -1,4 +1,4 @@
-package co.com.hulk.store.customer.services;
+package co.com.hulk.store.customer.services.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
