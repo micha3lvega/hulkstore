@@ -29,7 +29,7 @@ public class UserRestController {
 	private IUserServices iUserServices;
 
 	@PostMapping
-	public UserDTO createAdministrator(@Valid @RequestBody UserDTO user) throws UserException {
+	public UserDTO create(@Valid @RequestBody UserDTO user) throws UserException {
 		return iUserServices.create(user);
 	}
 
