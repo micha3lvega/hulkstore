@@ -58,8 +58,8 @@ public class UserRestController {
 		return iUserServices.enable(id);
 	}
 
-	@GetMapping("/login/{rol}/{email}/{password}")
-	public UserDTO login(@PathVariable("rol") RolDTO rol, @PathVariable("email") String email, @PathVariable("password") String password)
+	@GetMapping("/login/{email}/{password}")
+	public UserDTO login(@PathVariable("email") String email, @PathVariable("password") String password)
 			throws UserException {
 		return iUserServices.login(email, password);
 	}
