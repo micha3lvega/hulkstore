@@ -35,7 +35,7 @@ public class UserDTO implements Serializable {
 
 	@Email
 	@NotBlank(message = "El correo es obligatorio")
-	@Size(min = 3, max = 20, message = "El correo tiene que tener entre 3 y 20 caracteres")
+	@Size(min = 3, max = 120, message = "El correo tiene que tener entre 3 y 120 caracteres")
 	private String email;
 
 	@NotBlank(message = "El telefono es obligatorio")
