@@ -2,6 +2,7 @@ package co.com.hulk.store.commons.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -49,7 +50,7 @@ public class UserDTO implements Serializable {
 
 	private Date lastUpdate;
 
-	private RolDTO rol;
+	private List<RolDTO> roles;
 
 	private UserStateDTO state;
 

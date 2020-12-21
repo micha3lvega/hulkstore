@@ -1,7 +1,7 @@
 package co.com.hulk.store.services.model;
 
 import java.util.Date;
-
+import java.util.List;
 import java.io.Serializable;
 
 import org.springframework.data.annotation.Id;
@@ -42,7 +42,7 @@ public class User implements Serializable {
 	@LastModifiedDate
 	private Date lastUpdate;
 
-	private Rol rol;
+	private List<Rol> roles;
 
 	private UserState state;
 
