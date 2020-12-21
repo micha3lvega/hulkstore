@@ -61,7 +61,7 @@ public class UserRestController {
 	@GetMapping("/login/{rol}/{email}/{password}")
 	public UserDTO login(@PathVariable("rol") RolDTO rol, @PathVariable("email") String email, @PathVariable("password") String password)
 			throws UserException {
-		return iUserServices.login(rol, email, password);
+		return iUserServices.login(email, password);
 	}
 
 	@PutMapping("/updatePassword/{id}/{newPassword}")
