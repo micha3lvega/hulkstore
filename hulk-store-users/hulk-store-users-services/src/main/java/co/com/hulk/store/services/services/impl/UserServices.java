@@ -9,11 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.hulk.store.commons.dto.RolDTO;
 import co.com.hulk.store.commons.dto.UserDTO;
 import co.com.hulk.store.commons.exception.UserException;
 import co.com.hulk.store.commons.exception.UserExceptionCode;
-import co.com.hulk.store.services.model.Rol;
 import co.com.hulk.store.services.model.User;
 import co.com.hulk.store.services.model.UserState;
 import co.com.hulk.store.services.repository.UserRepository;
@@ -43,13 +41,10 @@ public class UserServices implements IUserServices {
 
 	@Override
 	@Transactional
-	public UserDTO createAdministrator(UserDTO user) throws UserException {
-
-		// Normalizar correo
-		user.setEmail(user.getEmail().toLowerCase());
+	public UserDTO create(UserDTO user) throws UserException {
 
 		// find by repeat email
-		User userEmail = repository.findByEmailAndRol(user.getEmail(), Rol.ADMINISTRATOR);
+		User userEmail = repository.findByEmail(user.getEmail().toLowerCase());
 
 		if (userEmail != null) {
 			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
@@ -58,7 +53,6 @@ public class UserServices implements IUserServices {
 		User obj = mapper.map(user, User.class);
 		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
 		obj.setState(UserState.ACTIVE);
-		obj.setRol(Rol.ADMINISTRATOR);
 
 		User userCreate = repository.insert(obj);
 		return mapper.map(userCreate, UserDTO.class);
@@ -67,40 +61,22 @@ public class UserServices implements IUserServices {
 
 	@Override
 	@Transactional
-	public UserDTO createCustomer(UserDTO user) throws UserException {
+	public UserDTO update(UserDTO user) throws UserException {
 
-		// Normalizar correo
-		user.setEmail(user.getEmail().toLowerCase());
-
-		// find by repeat email
-		User userEmail = repository.findByEmailAndRol(user.getEmail(), Rol.CUSTOMER);
-
-		if (userEmail != null) {
-			throw new UserException(UserExceptionCode.EMAIL_REPEAT_EXCEPTION);
+		// Buscar que ya exista la entidad
+		if (user == null || user.getId() == null) {
+			throw new UserException(UserExceptionCode.USER_NO_EXITS);
 		}
 
-		User obj = mapper.map(user, User.class);
-		obj.setPassword(passwordEncoder.encode(obj.getPassword()));
-		obj.setState(UserState.ACTIVE);
-		obj.setRol(Rol.CUSTOMER);
+		// Si no existe la entidad arrojar error
+		User findUser = repository.findById(user.getId())
+				.orElseThrow(() -> new UserException(UserExceptionCode.USER_NO_EXITS));
 
-		User userCreate = repository.insert(obj);
-		return mapper.map(userCreate, UserDTO.class);
-
-	}
-
-	@Override
-	@Transactional
-	public UserDTO update(UserDTO user) {
-
-		// Normalizar correo
-		user.setEmail(user.getEmail().toLowerCase());
+		// Agregar validaciones para no modificar datos sensibles
+		user.setEmail(findUser.getEmail());
+		user.setPassword(findUser.getPassword());
 
 		User obj = mapper.map(user, User.class);
-
-		// agregar validacion para no actualizar la contraseña
-		user.setPassword(user.getPassword());
-
 		User userCreate = repository.save(obj);
 		return mapper.map(userCreate, UserDTO.class);
 	}
@@ -114,18 +90,15 @@ public class UserServices implements IUserServices {
 
 	@Override
 	@Transactional(readOnly = true)
-	public UserDTO login(RolDTO rol, String email, String encodedPassword) throws UserException {
+	public UserDTO login(String email, String encodedPassword) throws UserException {
 
 		// Validar que el correo no sea nulo
 		if (email == null) {
 			throw new UserException(UserExceptionCode.INVALID_EMAIL);
 		}
 
-		// Normalizar correo
-		email = email.toLowerCase();
-
 		// find user by email
-		User user = repository.findByEmailAndRol(email, mapper.map(rol, Rol.class));
+		User user = repository.findByEmail(email.toLowerCase());
 
 		if (user == null) {
 			throw new UserException(UserExceptionCode.USER_NO_EXITS);
