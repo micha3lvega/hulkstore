@@ -18,7 +18,7 @@ public class ItemDTO implements Serializable {
 
 	private String id;
 
-	private ProductDTO products;
+	private ProductDTO product;
 	private int quantity;
 
 }
