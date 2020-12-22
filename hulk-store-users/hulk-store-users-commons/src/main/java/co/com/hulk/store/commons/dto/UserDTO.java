@@ -43,7 +43,7 @@ public class UserDTO implements Serializable {
 	private String mobile;
 
 	@NotEmpty(message = "La contraseña es obligatoria")
-	@Size(min = 6, max = 100, message = "El contraseña tiene que tener entre 6 y 50 digitos")
+	@Size(min = 6, max = 100, message = "La contraseña tiene que tener entre 6 y 100 digitos")
 	private String password;
 
 	private Date createDate;
