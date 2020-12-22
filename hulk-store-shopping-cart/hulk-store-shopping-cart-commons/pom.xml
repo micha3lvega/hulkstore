@@ -31,5 +31,18 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.1.6.Final</version>
 		</dependency>
+
+		<!-- Dependencias locales -->
+		<dependency>
+			<groupId>hulk-store</groupId>
+			<artifactId>hulk-store-customer-commons</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>hulk-store</groupId>
+			<artifactId>hulk-store-products-commons</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 </project>
